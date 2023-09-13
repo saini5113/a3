@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Size Changer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #container {
+            margin-top: 50px;
+        }
+
+        #font-size-input {
+            font-size: 18px;
+            width: 50px;
+            text-align: center;
+        }
+
+        #sample-text {
+            font-size: 16px; 
+            margin-top: 20px;
+        }
+
+        #font-size-display {
+            font-size: 18px;
+        }
+
+        .button {
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Font Size Changer</h1>
+        <p>Enter Font Size:</p>
+       
+        
+        <button class="button" id="decrease-button">-</button>
+        <input type="number" id="font-size-input" value="16">
+        <button class="button" id="increase-button">+</button><br><br><br><br>
+        <button class="button" id="copy-button">Copy Text</button>
+        <br>
+       
+        <p id="sample-text">simple text</p>
+    </div>
+
+    <script>
+        const sampleText = document.getElementById('sample-text');
+        const fontSizeInput = document.getElementById('font-size-input');
+        const fontSizeDisplay = document.getElementById('font-size-display');
+        const decreaseButton = document.getElementById('decrease-button');
+        const increaseButton = document.getElementById('increase-button');
+        const copyButton = document.getElementById('copy-button');
+
+        let fontSize = 24; 
+
+        
+        function updateFontSizeDisplay() {
+            fontSizeDisplay.textContent = 'Font Size: ' + fontSize + 'px';
+        }
+
+        
+        function decreaseFontSize() {
+            if (fontSize > 8) { 
+                fontSize -= 2;
+                fontSizeInput.value = fontSize; 
+                sampleText.style.fontSize = fontSize + 'px';
+                updateFontSizeDisplay();
+            }
+        }
+
+        function increaseFontSize() {
+            fontSize += 2;
+            fontSizeInput.value = fontSize; 
+            sampleText.style.fontSize = fontSize + 'px';
+            updateFontSizeDisplay();
+        }
+
+       
+        function copyText() {
+            const textToCopy = sampleText.textContent;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert('Text copied to clipboard: ' + textToCopy);
+                })
+                .catch(error => {
+                    console.error('Error copying text: ', error);
+                });
+        }
+
+        decreaseButton.addEventListener('click', decreaseFontSize);
+        increaseButton.addEventListener('click', increaseFontSize);
+        copyButton.addEventListener('click', copyText);
+
+       
+        updateFontSizeDisplay();
+    </script>
+</body>
+</html>
